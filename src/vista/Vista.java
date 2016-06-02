@@ -74,8 +74,6 @@ public class Vista{
 	private JMenu mnUtilidades;
 	private JMenuItem mntmAbrirEnEl;
 	private JMenuItem mntmAutor;
-	private FileFilter filterCSV; 
-	private JFileChooser jFileChooserCSV;
 	private JScrollPane scroll;
 	private JSplitPane splitPane;
     private JPanel panel;
@@ -91,15 +89,13 @@ public class Vista{
 	private JLabel labelSize= new JLabel("  0 elementos.");
 	private JMenuItem BorrarTabla;
 	private JMenuItem mntmCargarDatos;
-		
+	private FileFilter filterCSV; 
+	private JFileChooser jFileChooserCSV;
+	
 	public Vista() {
-			
+		
 		inicializa();
-		
-		//jFileChooserCSV = new JFileChooser();
-		//jFileChooserCSV.setFileFilter(filterCSV);
-		//pack();
-		
+		//frame.pack();		
 	}
 	 	 
 	/**
@@ -116,6 +112,7 @@ public class Vista{
 		setContentPane(contentPane);	
 		frame.add(contentPane);
 		frame.setBounds(100, 100, 1000, 500);
+		this.getFrame().setVisible(true);
 
 		// ========================================= TABLE CENTER ===================================================== //
 		
@@ -141,11 +138,10 @@ public class Vista{
 						txtBarraStatus.setText("FILA SELECCIONADA");
 					}
 				});
-				
-				
-				
+					
 		// ========================================= BARRA DE MENÚ-- NORTH ===================================================== //
-		menuBar = new JMenuBar();
+		
+				menuBar = new JMenuBar();
 		contentPane.add(menuBar, BorderLayout.NORTH);
 		mnArchivo = new JMenu("Archivo");
 		mnArchivo.setMnemonic('A');
@@ -206,13 +202,11 @@ public class Vista{
 
 		// ========================================= TEXTSFIELDS-- CENTER // ===================================================== //
 
-		
 		txtBarraStatus.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		menuBar.add(txtBarraStatus);
 
 		// ========================================= SPLITPANE-- CENTER  ===================================================== //
 		
-
 		panel = new JPanel();
 		splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		splitPane.setResizeWeight(1);
@@ -221,6 +215,8 @@ public class Vista{
 		splitPane.setBottomComponent(panel);
 		getContentPane().add(splitPane, BorderLayout.CENTER);
 
+		// ========================================= TEXTSFIELDS-- CENTER // ===================================================== //
+		
 		txtID = new JTextField();
 		panel.add(txtID);
 		txtID.setColumns(10);
@@ -246,7 +242,6 @@ public class Vista{
 
 		// ========================================= BOTONES-- SPLITPANE CENTER ===================================================== //
 		
-
 		Button_Modificar = new JButton("Modificar");
 		panel.add(Button_Modificar);
 
@@ -256,11 +251,16 @@ public class Vista{
 		ButtonBorrar = new JButton("Borrar");
 		panel.add(ButtonBorrar);
 		panel.add(labelSize);
+		
+		// ========================================= FILECHOOSER ===================================================== //
+		
+	
 
 	}
 
-
 	// ========================================= GETTERS Y SETTERS ===================================================== //	
+	
+	
 	
 	public JPanel getContentPane() {
 		return contentPane;
@@ -317,6 +317,7 @@ public class Vista{
 	public JMenuItem getMntmAbrirCsv() {
 		return mntmAbrirCsv;
 	}
+	
 
 	public void setMntmAbrirCsv(JMenuItem mntmAbrirCsv) {
 		this.mntmAbrirCsv = mntmAbrirCsv;

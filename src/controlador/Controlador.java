@@ -2,6 +2,8 @@ package controlador;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.ObjectInputStream.GetField;
+import java.lang.reflect.GenericArrayType;
 import java.util.List;
 import java.util.Scanner;
 import javax.swing.JFrame;
@@ -12,45 +14,44 @@ import modelo.*;
 import vista.TableModelArte;
 import vista.Vista;
 
-
 public class Controlador {
 	
 	private final String[] CABECERA= {"ID", "MUSEO", "OBRA", "AUTOR","SIGLO"};
 	private List<ObraArte> listaArte;
-	private Vista vista;
+	private Vista vista;	
 		
 public Controlador() {
-	Vista v= new Vista(); 
+	vista= new Vista(); 
+	
+	rellenarDatos();
 }
 
-/*public void rellenarDatos(){
+public void rellenarDatos(){	
 	
+vista.getMntmAbrirCsv().addActionListener(r->{	
 	
-vista.getMntmAbrirCsv().addActionListener(r->{
-		
-		jFileChooserCSV= new JFileChooser();
-		int returnJChooser= jFileChooserCSV.showOpenDialog(vista.getContentPane());
-		if (returnJChooser==JFileChooser.APPROVE_OPTION){
-		File file= new File(jFileChooserCSV.getSelectedFile(),"");
+	System.out.println("Funciona");
+	JFileChooser jchooser= new JFileChooser();
+	vista.setjFileChooserCSV(jchooser);
+	int returnJChooser= jchooser.showOpenDialog(vista.getContentPane());
+	if (returnJChooser==JFileChooser.APPROVE_OPTION){
+		File file= new File(jchooser.getSelectedFile(),"");
 		Scanner sc;
 		try {
 			sc = new Scanner(file);
 			String cabecero = sc.nextLine(); 
-			while(sc.hasNextLine()){
+			while(sc.hasNextLine()){ 
 				String[] textoEnLineas = sc.nextLine().split(",");
+				System.out.println((textoEnLineas[0] + textoEnLineas[1]+ textoEnLineas[2]+ textoEnLineas[3]+textoEnLineas[4]));
 				listaArte.add(new ObraArte(textoEnLineas[0], textoEnLineas[1], textoEnLineas[2], textoEnLineas[3], textoEnLineas[4]));
 			}
-		} catch (FileNotFoundException e) {
-			
+			System.out.println(listaArte);
+		} catch (FileNotFoundException e) {	
 			e.printStackTrace();
 		}
 		}		
 });	
-	
-
 }
-*/
-
 
 }
 
