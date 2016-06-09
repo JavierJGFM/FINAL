@@ -73,6 +73,7 @@ public class Vista{
 	private JMenuItem mntmGuardarComo;
 	private JMenu mnUtilidades;
 	private JMenuItem mntmAbrirEnEl;
+	private JMenuItem mntmGenerarPDF;
 	private JMenuItem mntmAutor;
 	private JScrollPane scroll;
 	private JSplitPane splitPane;
@@ -82,15 +83,20 @@ public class Vista{
 	private JTextField txtAutor;
 	private JTextField txtObra;
 	private JTextField txtSiglo;
-	private JLabel txtBarraStatus= new JLabel("BIENVENIDO");
+	private JLabel txtBarraStatus= new JLabel("BIENVENIDO. SELECCIONE EL CSV A IMPORTAR A LA BASE DE DATOS.");
 	private Component horizontalGlue;
 	private JMenuItem mntmRegistroAnterior;
 	private JMenuItem mntmRegistroSiguiente;
 	private JLabel labelSize= new JLabel("  0 elementos.");
 	private JMenuItem BorrarTabla;
+	private JMenuItem VerVistaAutorObra;
+	private JMenuItem VerTablaHistorial;
+	private JMenuItem RefrescarTabla;
 	private JMenuItem mntmCargarDatos;
 	private FileFilter filterCSV; 
 	private JFileChooser jFileChooserCSV;
+	private JFileChooser jfFileChooserPDF;
+	
 	
 	public Vista() {
 		
@@ -104,7 +110,7 @@ public class Vista{
 	
 	private void inicializa(){
 		
-		frame= new JFrame("REGISTROS ARTÍSTICOS"); 
+		frame= new JFrame("REGISTROS ARTÍSTICOS."); 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -130,16 +136,19 @@ public class Vista{
 
 					@Override
 					public void valueChanged(ListSelectionEvent e) {
-						txtID.setText(table.getValueAt(table.getSelectedRow(), 0) + "");
-						txtAutor.setText(table.getValueAt(table.getSelectedRow(), 2) + "");
-						txtObra.setText(table.getValueAt(table.getSelectedRow(), 3) + "");
-						txtMuseo.setText(table.getValueAt(table.getSelectedRow(), 1) + "");
-						txtSiglo.setText(table.getValueAt(table.getSelectedRow(), 4) + "");
-						txtBarraStatus.setText("FILA SELECCIONADA");
+						
+							/*	txtID.setText(table.getValueAt(table.getSelectedRow(), 0) + "");
+								txtAutor.setText(table.getValueAt(table.getSelectedRow(), 2) + "");
+								txtObra.setText(table.getValueAt(table.getSelectedRow(), 3) + "");
+								txtMuseo.setText(table.getValueAt(table.getSelectedRow(), 1) + "");
+								txtSiglo.setText(table.getValueAt(table.getSelectedRow(), 4) + "");
+							*/	
+							txtBarraStatus.setText("FILA SELECCIONADA. ESCRIBA EL ID PARA AÑADIR, BORRAR O MODIFICAR.");
+					
 					}
 				});
-					
-		// ========================================= BARRA DE MENÚ-- NORTH ===================================================== //
+				
+		// ========================================= BARRA DE MENÚ--NORTH ===================================================== //
 		
 				menuBar = new JMenuBar();
 		contentPane.add(menuBar, BorderLayout.NORTH);
@@ -150,18 +159,18 @@ public class Vista{
 		mntmAbrirCsv = new JMenuItem("Abrir CSV...");	
 		mnArchivo.add(mntmAbrirCsv);
 		
-		mntmCargarDatos = new JMenuItem("Cargar datos");
+		mntmCargarDatos = new JMenuItem("Cargar datos de la BD.");
 		mnArchivo.add(mntmCargarDatos);
 		
-		mntmGuardarComo = new JMenuItem("Guardar como...");
+		mntmGuardarComo = new JMenuItem("Salir.");
 		mnArchivo.add(mntmGuardarComo);
 		
 		mnEditar = new JMenu("Editar");
 		mnEditar.setMnemonic('E');
 		menuBar.add(mnEditar);
 		
-		mntmRegistroAnterior = new JMenuItem("Registro anterior");
-		mntmRegistroSiguiente = new JMenuItem("Registro siguiente");
+		mntmRegistroAnterior = new JMenuItem("Registro anterior.");
+		mntmRegistroSiguiente = new JMenuItem("Registro siguiente.");
 		
 		mnEditar.add(mntmRegistroSiguiente);
 		mnEditar.add(mntmRegistroAnterior);
@@ -169,25 +178,34 @@ public class Vista{
 		mntmLimpiarCampos = new JMenuItem("Limpiar campos...");
 		mnEditar.add(mntmLimpiarCampos);
 		
-		mntmBorrarFila = new JMenuItem("Borrar fila");
+		mntmBorrarFila = new JMenuItem("Borrar fila.");
 		mnEditar.add(mntmBorrarFila);
 
 		mnSqlite = new JMenu("SQLite");
 		menuBar.add(mnSqlite);
 
-		BorrarTabla = new JMenuItem("Borrar tabla actual");
+		BorrarTabla = new JMenuItem("Borrar tabla actual.");
 		mnSqlite.add(BorrarTabla);
+		VerVistaAutorObra= new JMenuItem("Ver vista de autores y obras.");
+		mnSqlite.add(VerVistaAutorObra);
+		VerTablaHistorial= new JMenuItem("Ver el historial de registros eliminados.");
+		mnSqlite.add(VerTablaHistorial);
+		RefrescarTabla= new JMenuItem("Refrescar/Actualizar tabla actual.");
+		mnSqlite.add(RefrescarTabla);
 
 		mnUtilidades = new JMenu("Utilidades");
 		menuBar.add(mnUtilidades);
 
 		mntmAbrirEnEl = new JMenuItem("Abrir en el explorador...");
+		mntmGenerarPDF= new JMenuItem("Generar PDF... ");
+		
 		mnUtilidades.add(mntmAbrirEnEl);
+		mnUtilidades.add(mntmGenerarPDF);
 
 		mnAcercaDe = new JMenu("Acerca de...");
 		mnAcercaDe.setMnemonic('R');
 		menuBar.add(mnAcercaDe);
-		mntmAutor = new JMenuItem("Autor");
+		mntmAutor = new JMenuItem("Autor.");
 		mntmAutor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane jpanel = new JOptionPane();
@@ -251,10 +269,7 @@ public class Vista{
 		ButtonBorrar = new JButton("Borrar");
 		panel.add(ButtonBorrar);
 		panel.add(labelSize);
-		
-		// ========================================= FILECHOOSER ===================================================== //
-		
-	
+			
 
 	}
 
@@ -262,6 +277,14 @@ public class Vista{
 	
 	
 	
+	public JMenuItem getRefrescarTabla() {
+		return RefrescarTabla;
+	}
+
+	public void setRefrescarTabla(JMenuItem refrescarTabla) {
+		RefrescarTabla = refrescarTabla;
+	}
+
 	public JPanel getContentPane() {
 		return contentPane;
 	}
@@ -542,15 +565,39 @@ public class Vista{
 	public JFrame getFrame() {
 		return frame;
 	}
+
+	public JMenuItem getMntmGenerarPDF() {
+		return mntmGenerarPDF;
+	}
+
+	public void setMntmGenerarPDF(JMenuItem mntmGenerarPDF) {
+		this.mntmGenerarPDF = mntmGenerarPDF;
+	}
+
+	public JFileChooser getJfFileChooserPDF() {
+		return jfFileChooserPDF;
+	}
+
+	public void setJfFileChooserPDF(JFileChooser jfFileChooserPDF) {
+		this.jfFileChooserPDF = jfFileChooserPDF;
+	}
+
+	public JMenuItem getVerVistaAutorObra() {
+		return VerVistaAutorObra;
+	}
+
+	public void setVerVistaAutorObra(JMenuItem verVistaAutorObra) {
+		VerVistaAutorObra = verVistaAutorObra;
+	}
+
+	public JMenuItem getVerTablaHistorial() {
+		return VerTablaHistorial;
+	}
+
+	public void setVerTablaHistorial(JMenuItem verTablaHistorial) {
+		VerTablaHistorial = verTablaHistorial;
+	}	
 	
 	
 	
 }
-
-	 
-	 
-
-	
-	 
-
-

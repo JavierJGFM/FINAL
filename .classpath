@@ -2,6 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="Datos"/>
+	<classpathentry kind="src" path="LibreriasExternas"/>
+	<classpathentry kind="src" path="UML"/>
+	<classpathentry kind="src" path="JarEjecutable"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="lib" path="C:/PROYECTO/ProyectoFinal/LibreriasExternas/itextpdf-5.5.9.jar"/>
+	<classpathentry kind="lib" path="C:/PROYECTO/ProyectoFinal/LibreriasExternas/sqlite-jdbc-3.8.11.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

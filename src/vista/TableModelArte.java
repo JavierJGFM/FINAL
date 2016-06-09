@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 import modelo.*;
 public class TableModelArte extends AbstractTableModel {
 
-	private String[] cabecera;
+	private String[] CABECERA= {"ID", "MUSEO", "OBRA", "SIGLO","AUTOR"};
 	private String[][] tabla;
 	private List<String> campos;
 	
@@ -15,7 +15,7 @@ public class TableModelArte extends AbstractTableModel {
 	public TableModelArte(List<ObraArte> lista, String[] cabecera) {
 		tabla= new String[lista.size()][lista.size()*cabecera.length];
 		campos= new ArrayList<String>();
-		this.cabecera=this.cabecera;
+		CABECERA=this.CABECERA;
 		
 		for (int i = 0; i < lista.size(); i++) {
 			ObraArte o= lista.get(i);
@@ -50,7 +50,7 @@ public class TableModelArte extends AbstractTableModel {
 	@Override
 	public int getColumnCount() {
 		// TODO Auto-generated method stub
-		return cabecera.length;
+		return CABECERA.length;
 	}
 
 	@Override
@@ -68,7 +68,26 @@ public class TableModelArte extends AbstractTableModel {
 	@Override
 	public String getColumnName(int column) {
 		// TODO Auto-generated method stub
-		return cabecera[column];
+		return CABECERA[column];
 	}
+
+	
+	
+	public String[] getCABECERA() {
+		return CABECERA;
+	}
+
+	public void setCABECERA(String[] cABECERA) {
+		CABECERA = cABECERA;
+	}
+
+	public List<String> getCampos() {
+		return campos;
+	}
+
+	public void setCampos(List<String> campos) {
+		this.campos = campos;
+	}
+	
 	
 }
